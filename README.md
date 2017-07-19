@@ -1,2 +1,3 @@
 # VideoCameraApp-Qt
-VideoCameraApp
+
+Based on Opencv.
