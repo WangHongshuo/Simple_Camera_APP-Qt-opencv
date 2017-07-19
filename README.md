@@ -1,0 +1,2 @@
+# VideoCameraApp-Qt
+VideoCameraApp
