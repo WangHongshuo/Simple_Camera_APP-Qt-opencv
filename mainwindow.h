@@ -1,4 +1,4 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QMainWindow>
@@ -53,9 +53,9 @@ private:
     QTimer *timer;
     int th1;
     int th2;
-    bool is_open_img = false;
-    bool is_gray_img = false;
-    bool is_canny_img = false;
+    bool is_open_img;
+    bool is_gray_img;
+    bool is_canny_img;
 };
 
 #endif // MAINWINDOW_H

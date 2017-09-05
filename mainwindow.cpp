@@ -47,6 +47,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    is_open_img = false;
+    is_gray_img = false;
+    is_canny_img = false;
     delete ui;
 }
 
@@ -170,9 +173,12 @@ QImage Mat2QImage(cv::Mat mat)
 
 void MainWindow::on_close_cam_clicked()
 {
-    capture.release();
-    image.load("/balck.bmp");
-    ui->label->setPixmap(QPixmap::fromImage(image));
+    if (capture.isOpened())
+    {
+        capture.release();
+        timer->stop();
+        ui->label->clear();
+    }
 }
 
 
@@ -206,13 +212,13 @@ void MainWindow::show_open_img(cv::Mat &input_img)
     image = Mat2QImage(input_img);
     if(input_img.cols > 640)
     {
-        int h = round(double(input_img.rows)/double(input_img.cols)*double(640));
+        int h = int(double(input_img.rows)/double(input_img.cols)*double(640));
         QSize img_scale(640,h);
         image = image.scaled(img_scale,Qt::KeepAspectRatio,Qt::SmoothTransformation);
     }
     if(image.height() > 480)
     {
-        int w = round(double(image.width())/double(image.height())*double(480));
+        int w = int(double(image.width())/double(image.height())*double(480));
         QSize img_scale(w,480);
         image = image.scaled(img_scale,Qt::KeepAspectRatio,Qt::SmoothTransformation);
     }
@@ -288,3 +294,4 @@ void MainWindow::on_slider_th2_valueChanged()
         MainWindow::on_edge_clicked(1);
     }
 }
+
