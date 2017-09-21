@@ -18,6 +18,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->label->setScaledContents(true);
+    ui->edge->setEnabled(false);
+    ui->save_pic->setEnabled(false);
+    ui->close_cam->setEnabled(false);
 
     ui->slider_th1->setMinimum(0);
     ui->slider_th1->setMaximum(255);
@@ -47,9 +50,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    is_open_img = false;
-    is_gray_img = false;
-    is_canny_img = false;
+
     delete ui;
 }
 
@@ -58,13 +59,19 @@ void MainWindow::nextFrame()
     capture >> frame;
     if(ui->grayscale->isChecked())
     {
+        ui->edge->setEnabled(true);
         cv::cvtColor(frame,frame,CV_BGR2GRAY);
+    }
+    else
+    {
+        ui->edge->setChecked(false);
+        ui->edge->setEnabled(false);
     }
     if(ui->edge->isChecked())
     {
-        th1 = ui->slider_th1->value();
-        th2 = ui->slider_th2->value();
-        cv::Canny(frame,frame,th1,th2);
+            th1 = ui->slider_th1->value();
+            th2 = ui->slider_th2->value();
+            cv::Canny(frame,frame,th1,th2);
     }
     if (!frame.empty())
     {
@@ -78,6 +85,10 @@ void MainWindow::on_open_cam_clicked()
     if (capture.isOpened())
         capture.release();
     capture.open(0);
+    ui->label->clear();
+    ui->save_pic->setEnabled(true);
+    ui->close_cam->setEnabled(true);
+    ui->open_cam->setEnabled(false);
     if (capture.isOpened())
     {
         capture >> frame;
@@ -137,40 +148,6 @@ QImage Mat2QImage(cv::Mat mat)
     }
 }
 
-
-//QImage  Mat2QImage(cv::Mat cvImg)
-//{
-//    QImage qImg;
-//    if(cvImg.channels()==3)                             //3 channels color image
-//    {
-
-//        cv::cvtColor(cvImg,cvImg,CV_BGR2RGB);
-//        qImg =QImage((const unsigned char*)(cvImg.data),
-//                     cvImg.cols, cvImg.rows,
-//                     cvImg.cols*cvImg.channels(),
-//                     QImage::Format_RGB888);
-//    }
-//    else if(cvImg.channels()==1)                    //grayscale image
-//    {
-//        qImg =QImage((const unsigned char*)(cvImg.data),
-//                     cvImg.cols,cvImg.rows,
-//                     cvImg.cols*cvImg.channels(),
-//                     QImage::Format_Indexed8);
-//    }
-//    else
-//    {
-//        qImg =QImage((const unsigned char*)(cvImg.data),
-//                     cvImg.cols,cvImg.rows,
-//                     cvImg.cols*cvImg.channels(),
-//                     QImage::Format_RGB888);
-//    }
-
-//    return qImg;
-
-//}
-
-
-
 void MainWindow::on_close_cam_clicked()
 {
     if (capture.isOpened())
@@ -178,22 +155,39 @@ void MainWindow::on_close_cam_clicked()
         capture.release();
         timer->stop();
         ui->label->clear();
+        ui->save_pic->setEnabled(false);
+        ui->edge->setChecked(false);
+        ui->edge->setEnabled(false);
+        ui->open_cam->setEnabled(true);
+        ui->close_cam->setEnabled(false);
     }
 }
 
 
 void MainWindow::on_open_img_clicked()
 {
-    capture.release();
-    image.load("/black.bmp");
-    ui->label->setPixmap(QPixmap::fromImage(image));
+    bool flag;
+    if(capture.isOpened())
+    {
+        flag = true;
+        capture.release();
+        timer->stop();
+    }
+    else
+        flag =false;
+    ui->label->clear();
     QString filename = QFileDialog::getOpenFileName(this,tr("Open Image"),"",tr("Image File(*.bmp *.jpg *.jpeg *.png)"));
     QTextCodec *code = QTextCodec::codecForName("gb18030");
     std::string name = code->fromUnicode(filename).data();
     input_img = cv::imread(name);
     if(!input_img.data)
     {
-        capture.open(0);
+        ui->save_pic->setEnabled(false);
+        if(flag)
+        {
+            capture.open(0);
+            timer->start();
+        }
         QMessageBox msgBox;
         msgBox.setText(tr("Image data is null!"));
         msgBox.exec();
@@ -202,7 +196,10 @@ void MainWindow::on_open_img_clicked()
     {
         ui->grayscale->setChecked(false);
         ui->edge->setChecked(false);
+        ui->save_pic->setEnabled(true);
         is_open_img = true;
+        ui->open_cam->setEnabled(true);
+        ui->close_cam->setEnabled(false);
         show_open_img(input_img);
     }
 }
@@ -235,47 +232,56 @@ void MainWindow::on_ui_close_clicked()
 
 void MainWindow::on_grayscale_clicked(bool checked)
 {
-    if(checked && is_open_img)
+    if(!capture.isOpened())
     {
-        cv::cvtColor(input_img,gray_img,CV_BGR2GRAY);
-        is_gray_img = true;
-        show_open_img(gray_img);
-    }
-    else if(!checked && is_open_img)
-    {
-        is_gray_img = false;
-        if(is_canny_img)
-            show_open_img(canny_img);
-        else
-            show_open_img(input_img);
+        if(checked && is_open_img)
+        {
+            cv::cvtColor(input_img,gray_img,CV_BGR2GRAY);
+            is_gray_img = true;
+            show_open_img(gray_img);
+            ui->edge->setEnabled(true);
+        }
+        else if(!checked && is_open_img)
+        {
+            is_gray_img = false;
+            if(is_canny_img)
+            {
+                ui->edge->setChecked(false);
+                ui->edge->setEnabled(false);
+                show_open_img(input_img);
+            }
+        }
     }
 }
 
 void MainWindow::on_edge_clicked(bool checked)
 {
-    if(checked && is_open_img)
+    if(!capture.isOpened())
     {
-        th1 = ui->slider_th1->value();
-        th2 = ui->slider_th2->value();
-        if(is_gray_img)
+        if(checked && is_open_img)
         {
-            cv::Canny(gray_img,canny_img,th1,th2);
-            is_canny_img = true;
-            show_open_img(canny_img);
+            th1 = ui->slider_th1->value();
+            th2 = ui->slider_th2->value();
+            if(is_gray_img)
+            {
+                cv::Canny(gray_img,canny_img,th1,th2);
+                is_canny_img = true;
+                show_open_img(canny_img);
+            }
+            else
+            {
+                cv::Canny(input_img,canny_img,th1,th2);
+                is_canny_img = true;
+                show_open_img(canny_img);
+            }
         }
-        else
+        else if(!checked && is_open_img)
         {
-            cv::Canny(input_img,canny_img,th1,th2);
-            is_canny_img = true;
-            show_open_img(canny_img);
+            if(is_gray_img)
+                show_open_img(gray_img);
+            else
+                show_open_img(input_img);
         }
-    }
-    else if(!checked && is_open_img)
-    {
-        if(is_gray_img)
-            show_open_img(gray_img);
-        else
-            show_open_img(input_img);
     }
 }
 
@@ -295,3 +301,15 @@ void MainWindow::on_slider_th2_valueChanged()
     }
 }
 
+
+void MainWindow::on_save_pic_clicked()
+{
+
+    QImage temp;
+    temp = image;
+    QString filename = QFileDialog::getSaveFileName(this, tr("Open File"),
+                                                    "C:/",
+                                                    tr("Images (*.png *.xpm *.jpg *.tiff *.bmp)"));
+
+    temp.save(filename);
+}

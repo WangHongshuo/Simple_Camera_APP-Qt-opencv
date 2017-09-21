@@ -41,6 +41,8 @@ private slots:
 
     void on_slider_th2_valueChanged();
 
+    void on_save_pic_clicked();
+
 private:
 
     Ui::MainWindow *ui;
@@ -53,9 +55,10 @@ private:
     QTimer *timer;
     int th1;
     int th2;
-    bool is_open_img;
-    bool is_gray_img;
-    bool is_canny_img;
+    bool is_open_img = false;
+    bool is_gray_img = false;
+    bool is_canny_img = false;
+
 };
 
 #endif // MAINWINDOW_H
