@@ -44,10 +44,10 @@ void MainWindow::on_openCameraButton_clicked()
         {
             isCameraDeviceOpen = true;
             startGrabFrame();
+            ui->openCameraButton->setEnabled(false);
+            ui->closeCameraButton->setEnabled(true);
         }
     }
-    ui->openCameraButton->setEnabled(false);
-    ui->closeCameraButton->setEnabled(true);
 }
 
 void MainWindow::on_closeCameraButton_clicked()
@@ -55,6 +55,7 @@ void MainWindow::on_closeCameraButton_clicked()
     stopGrabFrame();
     cameraDevices.release();
     isCameraDeviceOpen = false;
+    ui->showCameraImage->clear();
     ui->openCameraButton->setEnabled(true);
     ui->closeCameraButton->setEnabled(false);
 }
@@ -116,9 +117,15 @@ void MainWindow::on_selectCamera_activated(int index)
         cameraDevices.open(cameraIndex);
         if(!cameraDevices.isOpened())
         {
+            timer->stop();
             QMessageBox msgBox;
             msgBox.setText(tr("Can't open camera !"));
             msgBox.exec();
+        }
+        else
+        {
+            timer->stop();
+            timer->start();
         }
     }
 }
