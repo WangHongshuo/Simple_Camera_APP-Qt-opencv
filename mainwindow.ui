@@ -104,7 +104,7 @@
      </size>
     </property>
     <property name="text">
-     <string>Update Camera</string>
+     <string>Update Cameras</string>
     </property>
    </widget>
    <zorder>layoutWidget</zorder>

@@ -6,6 +6,12 @@ Based on Opencv.
 
 Log:
 
+2017.12.27:     
+
+Finished basic function. Now it can detect all the camera device in the computer and select one camera to get image, but the face detection function performed badly, it will take 150ms to process each frame, I don't whether I can optimize it or not.  (            
+
+重写完成，可以检测所有的摄像头并选用不同的摄像头，但人脸检测函数要花费150ms处理每一帧，不知道能不能优化得了。      
+
 2017.12.26:     
 
 Ready to rebuild this project and add some new function.       

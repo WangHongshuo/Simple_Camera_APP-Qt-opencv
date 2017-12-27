@@ -100,7 +100,6 @@ void MainWindow::stopGrabFrame()
 void MainWindow::showCameraFrames()
 {
     cameraDevices >> cameraSteamFrame;
-    qDebug() << cameraSteamFrame.cols << cameraSteamFrame.rows;
 //    QTime a;
 //    a.start();
     santaHat.putOnMySantaHat(cameraSteamFrame);

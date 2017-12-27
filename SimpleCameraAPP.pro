@@ -28,13 +28,15 @@ SOURCES += \
         mainwindow.cpp \
     ImageWidget.cpp \
     mat_qimage_convert.cpp \
-    selectrect.cpp
+    selectrect.cpp \
+    wearsantahat.cpp
 
 HEADERS += \
         mainwindow.h \
     ImageWidget.h \
     mat_qimage_convert.h \
-    selectrect.h
+    selectrect.h \
+    wearsantahat.h
 
 FORMS += \
         mainwindow.ui

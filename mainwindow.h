@@ -8,6 +8,7 @@
 #include <QTime>
 #include <opencv2/core.hpp>
 #include <opencv2/videoio.hpp>
+#include "wearsantahat.h"
 
 using namespace cv;
 
@@ -48,6 +49,7 @@ private:
     VideoCapture cameraDevices;
     QTimer *timer;
     bool isCameraDeviceOpen = false;
+    WearSantaHat santaHat;
 };
 
 #endif // MAINWINDOW_H
