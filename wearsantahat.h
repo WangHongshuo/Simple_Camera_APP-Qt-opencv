@@ -32,7 +32,7 @@ private:
     Mat grayImage;
     Mat facePositionData;
     int hatIndex = 0;
-
+    bool isInitializationSuccess = true;
     CascadeClassifier faceDetecter;
 };
 

@@ -6,6 +6,12 @@ Based on Opencv.
 
 Log:
 
+2017.12.28:
+
+Fixed bugs when initialization failed and now it can process images only have 1 or 3 channels, but it's very heavy. (            
+
+修复了初始化失败可能导致的错误，现在支持处理单通道和3通道图像。但是速度依然很慢。       
+
 2017.12.27:     
 
 Finished basic function. Now it can detect all the camera device in the computer and select one camera to get image, but the face detection function performed badly, it will take 150ms to process each frame, I don't whether I can optimize it or not.  (            

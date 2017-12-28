@@ -24,9 +24,17 @@ void WearSantaHat::putOnMySantaHat(Mat &src)
         msgBox.setText(QObject::tr("Image data is null!"));
         msgBox.exec();
     }
+    else if(!isInitializationSuccess)
+    {
+        QMessageBox msgBox;
+        msgBox.setText(QObject::tr("Initialization Failed!"));
+        msgBox.exec();
+    }
     else
+    {
         inputImage = src;
-    mainTask(inputImage);
+        mainTask(inputImage);
+    }
 }
 
 void WearSantaHat::updateHat(int hat)
@@ -93,7 +101,13 @@ void WearSantaHat::initializeData()
     Qpath += "/haarcascade_frontalface_alt2.xml";
     path = Qpath.toStdString();
     faceDetecter.load(path);
-
+    if(faceDetecter.empty())
+    {
+        isInitializationSuccess = false;
+        QMessageBox msgBox;
+        msgBox.setText(QObject::tr("Can't load detecer data!"));
+        msgBox.exec();
+    }
     Qpath = QCoreApplication::applicationDirPath();
     QString temp;
     for(int i=0;i<6;i++)
@@ -103,6 +117,7 @@ void WearSantaHat::initializeData()
         sentaHat[i] = imread(path,IMREAD_UNCHANGED);
         if(!sentaHat[i].data)
         {
+            isInitializationSuccess = false;
             QMessageBox msgBox;
             msgBox.setText(QObject::tr("Can't load hat!"));
             msgBox.exec();
@@ -149,8 +164,21 @@ void WearSantaHat::addHat(Mat &src, Mat &dst, int hatIndex)
             Mat BGRAChannels[4];
             split(hat,BGRAChannels);
             Mat hatMask = BGRAChannels[3];
-            Mat temp[3] = {BGRAChannels[0],BGRAChannels[1],BGRAChannels[2]};
-            merge(temp,3,hat);
+            // hat是4通道图片，如果输入图片为3或1通道，转换一下
+            if(src.channels() == 3)
+            {
+                QTime a;
+                a.start();
+                Mat temp[3] = {BGRAChannels[0],BGRAChannels[1],BGRAChannels[2]};
+                merge(temp,3,hat);
+                qDebug() << a.elapsed();
+            }
+            else if (src.channels() == 1)
+            {
+                Mat temp[4] = {src, src, src, src};
+                merge(temp,4,dst);
+            }
+            // 防止越界
             x = facePositionX(i);
             y = facePositionY(i) - hat.rows;
             if(y < 0)
