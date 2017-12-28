@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->showCameraImage->only_show_image(true);
+//    ui->showCameraImage->only_show_image(true);
     ui->closeCameraButton->setEnabled(false);
     availableCameraCount = cameraCount();
     setCamerasInfoInComboBox();
@@ -85,7 +85,7 @@ void MainWindow::setCamerasInfoInComboBox()
 void MainWindow::startGrabFrame()
 {
     timer = new QTimer(this);
-    timer->setInterval(1000/30);
+    timer->setInterval(1000/5);
     connect(timer,SIGNAL(timeout()),this,SLOT(showCameraFrames()));
     timer->start();
 }
@@ -100,7 +100,6 @@ void MainWindow::stopGrabFrame()
 void MainWindow::showCameraFrames()
 {
     cameraDevices >> cameraSteamFrame;
-    qDebug() << cameraSteamFrame.cols << cameraSteamFrame.rows;
 //    QTime a;
 //    a.start();
     santaHat.putOnMySantaHat(cameraSteamFrame);

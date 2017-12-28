@@ -114,7 +114,7 @@ void WearSantaHat::detecteFace(Mat &src,Mat &facePositionData)
     faceDetecter.detectMultiScale(src,faces,1.2,3,0,Size(0,0));
 //    qDebug() << a.elapsed();
     faceCount = static_cast<int>(faces.size());
-//    qDebug() << faceCount;
+    qDebug() << faceCount;
     if(faces.size()>0)
     {
         facePositionData = Mat(faces.size(),4,CV_32SC1);
