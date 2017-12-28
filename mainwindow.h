@@ -35,6 +35,8 @@ private slots:
 
     void on_selectCamera_activated(int index);
 
+    void on_putOnSantaHatCheckBox_stateChanged(int arg1);
+
 private:
     int cameraCount();
     void setCamerasInfoInComboBox();
@@ -49,7 +51,9 @@ private:
     VideoCapture cameraDevices;
     QTimer *timer;
     bool isCameraDeviceOpen = false;
-    WearSantaHat santaHat;
+    bool isPutOnSentaHat = false;
+    WearSantaHat *santaHat = new WearSantaHat;
+
 };
 
 #endif // MAINWINDOW_H

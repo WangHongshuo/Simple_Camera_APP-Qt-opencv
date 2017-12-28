@@ -16,7 +16,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-//    ui->showCameraImage->only_show_image(true);
+    ui->showCameraImage->only_show_image(true);
+    ui->selectHatStyleComboBox->setEnabled(false);
     ui->closeCameraButton->setEnabled(false);
     availableCameraCount = cameraCount();
     setCamerasInfoInComboBox();
@@ -85,7 +86,7 @@ void MainWindow::setCamerasInfoInComboBox()
 void MainWindow::startGrabFrame()
 {
     timer = new QTimer(this);
-    timer->setInterval(1000/5);
+    timer->setInterval(1000/24);
     connect(timer,SIGNAL(timeout()),this,SLOT(showCameraFrames()));
     timer->start();
 }
@@ -100,11 +101,17 @@ void MainWindow::stopGrabFrame()
 void MainWindow::showCameraFrames()
 {
     cameraDevices >> cameraSteamFrame;
-//    QTime a;
-//    a.start();
-    santaHat.putOnMySantaHat(cameraSteamFrame);
-//    qDebug() << a.elapsed();
-    tempQImage = Mat2QImage_with_pointer(santaHat.outputImage);
+    if(isPutOnSentaHat)
+    {
+        QTime a;
+        a.start();
+        santaHat->selectHat(ui->selectHatStyleComboBox->currentIndex());
+        santaHat->putOnMySantaHat(cameraSteamFrame);
+        qDebug() << a.elapsed();
+        tempQImage = Mat2QImage_with_pointer(santaHat->outputImage);
+    }
+    else
+        tempQImage = Mat2QImage_with_pointer(cameraSteamFrame);
     ui->showCameraImage->set_image_with_pointer(&tempQImage);
 }
 
@@ -133,5 +140,19 @@ void MainWindow::on_selectCamera_activated(int index)
             timer->stop();
             timer->start();
         }
+    }
+}
+
+void MainWindow::on_putOnSantaHatCheckBox_stateChanged(int arg1)
+{
+    if(arg1)
+    {
+        ui->selectHatStyleComboBox->setEnabled(true);
+        isPutOnSentaHat = true;
+    }
+    else
+    {
+        ui->selectHatStyleComboBox->setEnabled(false);
+        isPutOnSentaHat = false;
     }
 }

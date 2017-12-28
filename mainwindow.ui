@@ -107,10 +107,77 @@
      <string>Update Cameras</string>
     </property>
    </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>240</y>
+      <width>115</width>
+      <height>46</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QCheckBox" name="putOnSantaHatCheckBox">
+       <property name="text">
+        <string>Put On SantaHat</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Hat :</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="selectHatStyleComboBox">
+         <item>
+          <property name="text">
+           <string>Hat 1</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Hat 2</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Hat 3</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Hat 4</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Hat 5</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Hat 6</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
    <zorder>layoutWidget</zorder>
    <zorder>closeCameraButton</zorder>
    <zorder>openCameraButton</zorder>
    <zorder>updateCameraInfoButton</zorder>
+   <zorder>putOnSantaHatCheckBox</zorder>
+   <zorder>selectHatStyleComboBox</zorder>
+   <zorder>label_2</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

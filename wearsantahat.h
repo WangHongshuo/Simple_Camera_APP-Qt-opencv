@@ -20,6 +20,7 @@ public:
     int facePositionY(int faceIndex);
     int faceWidth(int faceIndex);
     int faceHeight(int faceIndex);
+    void selectHat(int index);
 
 private:
     void mainTask(Mat &src);
