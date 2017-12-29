@@ -10,7 +10,7 @@ Log:
 
 Applied ShiqiYu's face detecter (https://github.com/ShiqiYu/libfacedetection), it performed awesomely!       
 
-使用ShiqiYu的人脸检测（https://github.com/ShiqiYu/libfacedetection），速度非常快！      
+使用ShiqiYu的人脸检测(https://github.com/ShiqiYu/libfacedetection), 速度非常快！      
 
 2017.12.28:
 
