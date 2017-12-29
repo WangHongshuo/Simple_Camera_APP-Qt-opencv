@@ -3,7 +3,6 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/core.hpp>
-#include <opencv2/objdetect.hpp>
 
 using namespace cv;
 
@@ -33,7 +32,8 @@ private:
     Mat facePositionData;
     int hatIndex = 0;
     bool isInitializationSuccess = true;
-    CascadeClassifier faceDetecter;
+    unsigned char *faceData = new unsigned char[131072];
+    int *faceDetectResult = NULL;
 };
 
 #endif // WEARSANTAHAT_H

@@ -36,13 +36,22 @@ HEADERS += \
     ImageWidget.h \
     mat_qimage_convert.h \
     selectrect.h \
-    wearsantahat.h
+    wearsantahat.h \
+    facedetect-dll.h
 
 FORMS += \
         mainwindow.ui
-# MinGW32
+## MinGW32
 
-INCLUDEPATH += D:/opencv3.3.1/opencv_use/include\
-               D:/opencv3.3.1/opencv_use/include/opencv\
-               D:/opencv3.3.1/opencv_use/include/opencv2
-LIBS += -L D:/opencv3.3.1/opencv_use/lib/libopencv_*.a
+#INCLUDEPATH += D:/opencv3.3.1/opencv_use/include\
+#               D:/opencv3.3.1/opencv_use/include/opencv\
+#               D:/opencv3.3.1/opencv_use/include/opencv2
+#LIBS += -L D:/opencv3.3.1/opencv_use/lib/libopencv_*.a
+
+# MSVC Debug
+INCLUDEPATH += D:/opencv3.3.1/opencv/build/include\
+               D:/opencv3.3.1/opencv/build/include/opencv\
+               D:/opencv3.3.1/opencv/build/include/opencv2
+LIBS += D:/opencv3.3.1/opencv/build/x86/vc14/lib/opencv_world331d.lib
+
+LIBS += F:/Qt_project/Simple_Camera_APP-Qt-opencv/lib/libfacedetect.lib

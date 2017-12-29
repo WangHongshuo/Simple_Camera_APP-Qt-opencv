@@ -6,6 +6,12 @@ Based on Opencv.
 
 Log:
 
+2017.12.29:     
+
+Applied ShiqiYu's face detecter (https://github.com/ShiqiYu/libfacedetection), it performed awesomely!       
+
+使用ShiqiYu的人脸检测（https://github.com/ShiqiYu/libfacedetection），速度非常快！      
+
 2017.12.28:
 
 Fixed bugs when initialization failed and now it can process images only have 1 or 3 channels, but it's very heavy. (            

@@ -4,7 +4,10 @@
 #include <QDebug>
 #include <QString>
 #include <QTime>
-#include <opencv2/highgui.hpp>
+#include <opencv2/imgproc.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/core.hpp>
+#include "facedetect-dll.h"
 
 WearSantaHat::WearSantaHat()
 {
@@ -14,6 +17,7 @@ WearSantaHat::WearSantaHat()
 WearSantaHat::~WearSantaHat()
 {
     delete [] sentaHat;
+    delete [] faceData;
 }
 
 void WearSantaHat::putOnMySantaHat(Mat &src)
@@ -98,16 +102,6 @@ void WearSantaHat::initializeData()
 {
     QString Qpath = QCoreApplication::applicationDirPath();
     String path;
-    Qpath += "/haarcascade_frontalface_alt.xml";
-    path = Qpath.toStdString();
-    faceDetecter.load(path);
-    if(faceDetecter.empty())
-    {
-        isInitializationSuccess = false;
-        QMessageBox msgBox;
-        msgBox.setText(QObject::tr("Can't load detecer data!"));
-        msgBox.exec();
-    }
     Qpath = QCoreApplication::applicationDirPath();
     QString temp;
     for(int i=0;i<6;i++)
@@ -130,27 +124,29 @@ void WearSantaHat::detecteFace(Mat &src,Mat &facePositionData)
 {
 //    QTime a;
 //    a.start();
-    std::vector<Rect> faces;
-    faceDetecter.detectMultiScale(src,faces,1.2,3,0,Size(0,0));
+    faceDetectResult = facedetect_frontal_surveillance(faceData, (unsigned char*)src.data,
+                                          src.cols, src.rows, (int)src.step,
+                                          1.2f, 2, 48, 0 ,1);
 //    qDebug() << a.elapsed();
-    faceCount = static_cast<int>(faces.size());
-    if(faces.size()>0)
+    faceCount = *faceDetectResult;
+    if(faceCount>0)
     {
-        facePositionData = Mat(faces.size(),4,CV_32SC1);
-        qDebug() << "face : " << faceCount;
-        for(int i=0; i<static_cast<int>(faces.size()); i++)
+        facePositionData = Mat(faceCount,4,CV_32SC1);
+//        qDebug() << "face : " << faceCount;
+        for(int i=0; i<faceCount; i++)
         {
-//            rectangle(dst, Point(faces[i].x, faces[i].y),
-//                      Point(faces[i].x + faces[i].width, faces[i].y + faces[i].height),
+            short *p = ((short*)(faceData+4))+142*i;
+            facePositionData.ptr<int>(i)[0] = p[0];
+            facePositionData.ptr<int>(i)[1] = p[1];
+            facePositionData.ptr<int>(i)[2] = p[2];
+            facePositionData.ptr<int>(i)[3] = p[3];
+//            rectangle(inputImage, Point((int)p[0], (int)p[1]),
+//                      Point((int)p[0] + (int)p[3], (int)p[1] + (int)p[3]),
 //                      Scalar(0, 0, 255, 255),2,8);
-            facePositionData.ptr<int>(i)[0] = faces[i].x;
-            facePositionData.ptr<int>(i)[1] = faces[i].y;
-            facePositionData.ptr<int>(i)[2] = faces[i].width;
-            facePositionData.ptr<int>(i)[3] = faces[i].height;
-            qDebug() << facePositionData.ptr<int>(i)[0]
-            <<facePositionData.ptr<int>(i)[1]
-            <<facePositionData.ptr<int>(i)[2]
-            <<facePositionData.ptr<int>(i)[3];
+//            qDebug() << facePositionData.ptr<int>(i)[0]
+//            <<facePositionData.ptr<int>(i)[1]
+//            <<facePositionData.ptr<int>(i)[2]
+//            <<facePositionData.ptr<int>(i)[3];
         }
     }
 }
@@ -184,7 +180,7 @@ void WearSantaHat::addHat(Mat &src, Mat &dst, int hatIndex)
 
             // ∑¿÷π‘ΩΩÁ
             x = facePositionX(i);
-            y = facePositionY(i) - hat.rows;
+            y = facePositionY(i) - int(hat.rows*1.2);
             if(y < 0)
             {
                 Mat hatROI = hat(Rect(0,-y,hat.cols,hat.rows+y));
