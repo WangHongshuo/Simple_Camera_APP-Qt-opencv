@@ -6,185 +6,173 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>822</width>
-    <height>595</height>
+    <width>783</width>
+    <height>589</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="closeCameraButton">
-    <property name="geometry">
-     <rect>
-      <x>720</x>
-      <y>450</y>
-      <width>90</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>90</width>
-      <height>23</height>
-     </size>
-    </property>
-    <property name="text">
-     <string>Close Camera</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="openCameraButton">
-    <property name="geometry">
-     <rect>
-      <x>720</x>
-      <y>390</y>
-      <width>90</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>90</width>
-      <height>23</height>
-     </size>
-    </property>
-    <property name="text">
-     <string>Open Camera</string>
-    </property>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>12</x>
-      <y>12</y>
-      <width>642</width>
-      <height>510</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="ImageWidget" name="showCameraImage" native="true">
-       <property name="minimumSize">
-        <size>
-         <width>640</width>
-         <height>480</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1">
-       <item>
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>Camera :</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="selectCamera"/>
-       </item>
-      </layout>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QPushButton" name="updateCameraInfoButton">
-    <property name="geometry">
-     <rect>
-      <x>724</x>
-      <y>330</y>
-      <width>90</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>90</width>
-      <height>23</height>
-     </size>
-    </property>
-    <property name="text">
-     <string>Update Cameras</string>
-    </property>
-   </widget>
-   <widget class="QWidget" name="">
-    <property name="geometry">
-     <rect>
-      <x>680</x>
-      <y>240</y>
-      <width>115</width>
-      <height>46</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
-     <item>
-      <widget class="QCheckBox" name="putOnSantaHatCheckBox">
-       <property name="text">
-        <string>Put On SantaHat</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <item>
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>Hat :</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="selectHatStyleComboBox">
-         <item>
+   <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="10,0">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout" stretch="10,0">
+      <item>
+       <widget class="ImageWidget" name="showCameraImage" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>640</width>
+          <height>480</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1">
+        <item>
+         <widget class="QLabel" name="label">
           <property name="text">
-           <string>Hat 1</string>
+           <string>Camera :</string>
           </property>
-         </item>
-         <item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="selectCamera"/>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_4" stretch="10,1,1">
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,2">
+        <item>
+         <widget class="QCheckBox" name="putOnSantaHatCheckBox">
           <property name="text">
-           <string>Hat 2</string>
+           <string>Put On SantaHat</string>
           </property>
-         </item>
-         <item>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1">
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Hat :</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="selectHatStyleComboBox">
+            <item>
+             <property name="text">
+              <string>Hat 1</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Hat 2</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Hat 3</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Hat 4</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Hat 5</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Hat 6</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QPushButton" name="updateCameraInfoButton">
+          <property name="minimumSize">
+           <size>
+            <width>90</width>
+            <height>23</height>
+           </size>
+          </property>
           <property name="text">
-           <string>Hat 3</string>
+           <string>Update Cameras</string>
           </property>
-         </item>
-         <item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="openCameraButton">
+          <property name="minimumSize">
+           <size>
+            <width>90</width>
+            <height>23</height>
+           </size>
+          </property>
           <property name="text">
-           <string>Hat 4</string>
+           <string>Open Camera</string>
           </property>
-         </item>
-         <item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="closeCameraButton">
+          <property name="minimumSize">
+           <size>
+            <width>90</width>
+            <height>23</height>
+           </size>
+          </property>
           <property name="text">
-           <string>Hat 5</string>
+           <string>Close Camera</string>
           </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Hat 6</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
-   </widget>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
+   <zorder>layoutWidget</zorder>
    <zorder>layoutWidget</zorder>
    <zorder>closeCameraButton</zorder>
    <zorder>openCameraButton</zorder>
    <zorder>updateCameraInfoButton</zorder>
-   <zorder>putOnSantaHatCheckBox</zorder>
-   <zorder>selectHatStyleComboBox</zorder>
-   <zorder>label_2</zorder>
+   <zorder>verticalSpacer</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>822</width>
+     <width>783</width>
      <height>25</height>
     </rect>
    </property>

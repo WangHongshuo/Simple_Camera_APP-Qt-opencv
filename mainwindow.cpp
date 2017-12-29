@@ -107,7 +107,7 @@ void MainWindow::showCameraFrames()
         a.start();
         santaHat->selectHat(ui->selectHatStyleComboBox->currentIndex());
         santaHat->putOnMySantaHat(cameraSteamFrame);
-        qDebug() << a.elapsed();
+//        qDebug() << a.elapsed();
         tempQImage = Mat2QImage_with_pointer(santaHat->outputImage);
     }
     else

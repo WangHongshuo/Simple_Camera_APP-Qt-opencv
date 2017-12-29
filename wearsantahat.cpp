@@ -98,7 +98,7 @@ void WearSantaHat::initializeData()
 {
     QString Qpath = QCoreApplication::applicationDirPath();
     String path;
-    Qpath += "/haarcascade_frontalface_alt2.xml";
+    Qpath += "/haarcascade_frontalface_alt.xml";
     path = Qpath.toStdString();
     faceDetecter.load(path);
     if(faceDetecter.empty())
@@ -137,6 +137,7 @@ void WearSantaHat::detecteFace(Mat &src,Mat &facePositionData)
     if(faces.size()>0)
     {
         facePositionData = Mat(faces.size(),4,CV_32SC1);
+        qDebug() << "face : " << faceCount;
         for(int i=0; i<static_cast<int>(faces.size()); i++)
         {
 //            rectangle(dst, Point(faces[i].x, faces[i].y),
@@ -146,6 +147,10 @@ void WearSantaHat::detecteFace(Mat &src,Mat &facePositionData)
             facePositionData.ptr<int>(i)[1] = faces[i].y;
             facePositionData.ptr<int>(i)[2] = faces[i].width;
             facePositionData.ptr<int>(i)[3] = faces[i].height;
+            qDebug() << facePositionData.ptr<int>(i)[0]
+            <<facePositionData.ptr<int>(i)[1]
+            <<facePositionData.ptr<int>(i)[2]
+            <<facePositionData.ptr<int>(i)[3];
         }
     }
 }
@@ -156,28 +161,27 @@ void WearSantaHat::addHat(Mat &src, Mat &dst, int hatIndex)
     dst = src.clone();
     if(faceCount > 0)
     {
-        Mat hat = sentaHat[hatIndex].clone();
         for(int i=0; i<faceCount; i++)
         {
+            Mat hat = sentaHat[hatIndex].clone();
             resize(hat,hat,Size(faceWidth(i),faceWidth(i)),INTER_CUBIC);
 
             Mat BGRAChannels[4];
             split(hat,BGRAChannels);
             Mat hatMask = BGRAChannels[3];
+
             // hat是4通道图片，如果输入图片为3或1通道，转换一下
             if(src.channels() == 3)
             {
-                QTime a;
-                a.start();
                 Mat temp[3] = {BGRAChannels[0],BGRAChannels[1],BGRAChannels[2]};
                 merge(temp,3,hat);
-                qDebug() << a.elapsed();
             }
             else if (src.channels() == 1)
             {
                 Mat temp[4] = {src, src, src, src};
                 merge(temp,4,dst);
             }
+
             // 防止越界
             x = facePositionX(i);
             y = facePositionY(i) - hat.rows;
