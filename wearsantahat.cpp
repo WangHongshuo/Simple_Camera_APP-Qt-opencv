@@ -86,6 +86,14 @@ void WearSantaHat::selectHat(int index)
     hatIndex = index;
 }
 
+void WearSantaHat::putOnGreenHat(bool greenHat)
+{
+    if(greenHat)
+        isPutOnGreenHat = true;
+    else
+        isPutOnGreenHat = false;
+}
+
 void WearSantaHat::mainTask(Mat &src)
 {
     if(src.channels() == 3)
@@ -165,6 +173,13 @@ void WearSantaHat::addHat(Mat &src, Mat &dst, int hatIndex)
             Mat BGRAChannels[4];
             split(hat,BGRAChannels);
             Mat hatMask = BGRAChannels[3];
+            // 绿化
+            if(isPutOnGreenHat)
+            {
+                Mat temp[4] = {BGRAChannels[0],BGRAChannels[2],BGRAChannels[1],BGRAChannels[3]};
+                merge(temp,4,hat);
+                split(hat,BGRAChannels);
+            }
 
             // hat是4通道图片，如果输入图片为3或1通道，转换一下
             if(src.channels() == 3)

@@ -156,3 +156,16 @@ void MainWindow::on_putOnSantaHatCheckBox_stateChanged(int arg1)
         isPutOnSentaHat = false;
     }
 }
+
+void MainWindow::on_greenHatCheckBox_stateChanged(int arg1)
+{
+
+}
+
+void MainWindow::on_greenHatCheckBox_clicked(bool checked)
+{
+    if(checked)
+        santaHat->putOnGreenHat(true);
+    else
+        santaHat->putOnGreenHat(false);
+}

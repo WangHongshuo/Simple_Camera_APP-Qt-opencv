@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="10,0">
+   <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="10,1">
     <item>
      <layout class="QVBoxLayout" name="verticalLayout" stretch="10,0">
       <item>
@@ -59,11 +59,18 @@
        </spacer>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,2">
+       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,0,2">
         <item>
          <widget class="QCheckBox" name="putOnSantaHatCheckBox">
           <property name="text">
            <string>Put On SantaHat</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="greenHatCheckBox">
+          <property name="text">
+           <string>Green Hat</string>
           </property>
          </widget>
         </item>
@@ -160,12 +167,6 @@
      </layout>
     </item>
    </layout>
-   <zorder>layoutWidget</zorder>
-   <zorder>layoutWidget</zorder>
-   <zorder>closeCameraButton</zorder>
-   <zorder>openCameraButton</zorder>
-   <zorder>updateCameraInfoButton</zorder>
-   <zorder>verticalSpacer</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

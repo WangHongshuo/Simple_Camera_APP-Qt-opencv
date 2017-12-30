@@ -20,6 +20,7 @@ public:
     int faceWidth(int faceIndex);
     int faceHeight(int faceIndex);
     void selectHat(int index);
+    void putOnGreenHat(bool greenHat = false);
 
 private:
     void mainTask(Mat &src);
@@ -32,6 +33,7 @@ private:
     Mat facePositionData;
     int hatIndex = 0;
     bool isInitializationSuccess = true;
+    bool isPutOnGreenHat = false;
     unsigned char *faceData = new unsigned char[131072];
     int *faceDetectResult = NULL;
 };

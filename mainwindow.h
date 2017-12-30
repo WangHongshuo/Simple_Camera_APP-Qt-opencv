@@ -37,6 +37,10 @@ private slots:
 
     void on_putOnSantaHatCheckBox_stateChanged(int arg1);
 
+    void on_greenHatCheckBox_stateChanged(int arg1);
+
+    void on_greenHatCheckBox_clicked(bool checked);
+
 private:
     int cameraCount();
     void setCamerasInfoInComboBox();
