@@ -1,4 +1,5 @@
-# VideoCameraApp-Qt
+# Video Camera App
+- This project based on Qt, libfacedetect and opencv.
 
 ## Introduction： ##
 
