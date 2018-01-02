@@ -13,6 +13,11 @@ None.
 
 ## Change Log: ##
 
+- 2018.1.2:      
+
+Fixed hat images and now different hat has it's own parameters to fit your head.
+
+修正了帽子，对不同的帽子增加了对应的修正参数。
 
 - 2017.12.29:     
 

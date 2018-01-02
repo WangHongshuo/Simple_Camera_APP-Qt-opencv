@@ -36,6 +36,8 @@ private:
     bool isPutOnGreenHat = false;
     unsigned char *faceData = new unsigned char[131072];
     int *faceDetectResult = NULL;
+    float hatScale[6] = {1.6f,1.3f,1.4f,1.5f,1.3f,1.6f};
+    float hatYScale[6] = {1.1f,1.1f,1.15f,1.1f,1.1f,0.85f};
 };
 
 #endif // WEARSANTAHAT_H

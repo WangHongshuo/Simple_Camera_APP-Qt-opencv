@@ -161,14 +161,16 @@ void WearSantaHat::detecteFace(Mat &src,Mat &facePositionData)
 
 void WearSantaHat::addHat(Mat &src, Mat &dst, int hatIndex)
 {
-    int x, y;
+    int srcX1, srcY1, srcX2, srcY2;
     dst = src.clone();
     if(faceCount > 0)
     {
         for(int i=0; i<faceCount; i++)
         {
             Mat hat = sentaHat[hatIndex].clone();
-            resize(hat,hat,Size(faceWidth(i),faceWidth(i)),INTER_CUBIC);
+            int hatSize = int(faceWidth(i)*hatScale[hatIndex]);
+            resize(hat,hat,Size(hatSize,hatSize),INTER_CUBIC);
+            int hatX1 = 0, hatY1 = 0, hatX2 = hatSize-1, hatY2 = hatSize-1;
 
             Mat BGRAChannels[4];
             split(hat,BGRAChannels);
@@ -193,21 +195,36 @@ void WearSantaHat::addHat(Mat &src, Mat &dst, int hatIndex)
                 merge(temp,4,dst);
             }
 
+            srcX1 = facePositionX(i) - int((0.5*(hatScale[hatIndex]-1.0f))*faceWidth(i));
+            srcY1 = facePositionY(i) - int(hat.rows*hatYScale[hatIndex]);
+            srcX2 = srcX1 + hatSize - 1;
+            srcY2 = srcY1 + hatSize - 1;
             // ·ÀÖ¹Ô½½ç
-            x = facePositionX(i);
-            y = facePositionY(i) - int(hat.rows*1.2);
-            if(y < 0)
+            if(srcX1 < 0)
             {
-                Mat hatROI = hat(Rect(0,-y,hat.cols,hat.rows+y));
-                Mat hatMaskROI = hatMask(Rect(0,-y,hat.cols,hat.rows+y));
-                Mat imageROI = dst(Rect(x,0,hat.cols,hat.rows+y));
-                hatROI.copyTo(imageROI,hatMaskROI);
+                hatX1 = -srcX1;
+                srcX1 = 0;
             }
-            else
+            if(srcY1 < 0)
             {
-                Mat imageROI = dst(Rect(x,y,hat.cols,hat.rows));
-                hat.copyTo(imageROI,hatMask);
+                hatY1 = -srcY1;
+                srcY1 = 0;
             }
+            if(srcX2 > src.cols-1)
+            {
+                hatX2 = hatX2-(srcX2-src.cols+1);
+                srcX2 = src.cols-1;
+            }
+            if(srcY2 > src.rows-1)
+            {
+                hatY2 = hatY2-(srcY2-src.rows+1);
+                srcY2 = src.rows-1;
+            }
+
+            Mat imageROI = dst(Rect(srcX1,srcY1,srcX2-srcX1+1,srcY2-srcY1+1));
+            Mat hatROI = hat(Rect(hatX1,hatY1,hatX2-hatX1+1,hatY2-hatY1+1));
+            Mat hatMaskROI = hatMask(Rect(hatX1,hatY1,hatX2-hatX1+1,hatY2-hatY1+1));
+            hatROI.copyTo(imageROI,hatMaskROI);
         }
     }
 }
