@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "ImageWidget.h"
+#include "ImageWidget-Qt/ImageWidget.h"
 #include <QCameraInfo>
 #include <QTimer>
 #include <QTime>

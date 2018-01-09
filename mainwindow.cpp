@@ -7,7 +7,7 @@
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/imgproc.hpp>
 #include <QMessageBox>
-#include "mat_qimage_convert.h"
+#include "QImageMatConvert/mat_qimage_convert.h"
 #include "wearsantahat.h"
 
 

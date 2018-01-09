@@ -26,18 +26,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    ImageWidget.cpp \
-    mat_qimage_convert.cpp \
-    selectrect.cpp \
-    wearsantahat.cpp
+    wearsantahat.cpp \
+    ImageWidget-Qt/ImageWidget.cpp \
+    ImageWidget-Qt/selectrect.cpp \
+    QImageMatConvert/mat_qimage_convert.cpp
 
 HEADERS += \
         mainwindow.h \
-    ImageWidget.h \
-    mat_qimage_convert.h \
-    selectrect.h \
     wearsantahat.h \
-    facedetect-dll.h
+    facedetect-dll.h \
+    ImageWidget-Qt/ImageWidget.h \
+    ImageWidget-Qt/selectrect.h \
+    QImageMatConvert/mat_qimage_convert.h
 
 FORMS += \
         mainwindow.ui
