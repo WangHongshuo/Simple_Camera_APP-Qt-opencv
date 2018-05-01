@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->showCameraImage->only_show_image(true);
+    ui->showCameraImage->setEnableOnlyShowImage(true);
     ui->selectHatStyleComboBox->setEnabled(false);
     ui->closeCameraButton->setEnabled(false);
     availableCameraCount = cameraCount();
@@ -112,7 +112,7 @@ void MainWindow::showCameraFrames()
     }
     else
         tempQImage = Mat2QImage_with_pointer(cameraSteamFrame);
-    ui->showCameraImage->set_image_with_pointer(&tempQImage);
+    ui->showCameraImage->setImageWithPointer(&tempQImage);
 }
 
 void MainWindow::on_updateCameraInfoButton_clicked()
