@@ -21,6 +21,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->closeCameraButton->setEnabled(false);
     availableCameraCount = cameraCount();
     setCamerasInfoInComboBox();
+    timer = new QTimer(this);
+    timer->setInterval(1000/24);
+    fpsTimer = new QTimer(this);
+    fpsTimer->setInterval(1000);
 }
 
 MainWindow::~MainWindow()
@@ -85,17 +89,25 @@ void MainWindow::setCamerasInfoInComboBox()
 
 void MainWindow::startGrabFrame()
 {
-    timer = new QTimer(this);
-    timer->setInterval(1000/24);
     connect(timer,SIGNAL(timeout()),this,SLOT(showCameraFrames()));
+    connect(fpsTimer, SIGNAL(timeout()),this,SLOT(showFpsValue()));
     timer->start();
+    fpsTimer->start();
 }
 
 void MainWindow::stopGrabFrame()
 {
     timer->stop();
+    fpsTimer->stop();
+    fps = 0;
     disconnect(timer,SIGNAL(timeout()),this,SLOT(showCameraFrames()));
-    delete timer;
+    disconnect(fpsTimer, SIGNAL(timeout()),this,SLOT(showFpsValue()));
+}
+
+template<class V>
+void MainWindow::setFPSValue(V fpsValue)
+{
+    ui->labelFPSValue->setText(QString::number(fpsValue));
 }
 
 void MainWindow::showCameraFrames()
@@ -103,16 +115,14 @@ void MainWindow::showCameraFrames()
     cameraDevices >> cameraSteamFrame;
     if(isPutOnSentaHat)
     {
-        QTime a;
-        a.start();
         santaHat->selectHat(ui->selectHatStyleComboBox->currentIndex());
         santaHat->putOnMySantaHat(cameraSteamFrame);
-        qDebug() << a.elapsed();
         tempQImage = Mat2QImage_with_pointer(santaHat->outputImage);
     }
     else
         tempQImage = Mat2QImage_with_pointer(cameraSteamFrame);
     ui->showCameraImage->setImageWithPointer(&tempQImage);
+    fps ++;
 }
 
 void MainWindow::on_updateCameraInfoButton_clicked()
@@ -157,15 +167,16 @@ void MainWindow::on_putOnSantaHatCheckBox_stateChanged(int arg1)
     }
 }
 
-void MainWindow::on_greenHatCheckBox_stateChanged(int arg1)
-{
-
-}
-
 void MainWindow::on_greenHatCheckBox_clicked(bool checked)
 {
     if(checked)
         santaHat->putOnGreenHat(true);
     else
         santaHat->putOnGreenHat(false);
+}
+
+void MainWindow::showFpsValue()
+{
+    setFPSValue(fps);
+    fps = 0;
 }

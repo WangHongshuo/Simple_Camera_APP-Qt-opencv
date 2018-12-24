@@ -49,12 +49,12 @@ FORMS += \
 
 # MSVC
 
-INCLUDEPATH += D:/opencv3.4.1/opencv/build/include
+INCLUDEPATH += D:/opencv4.0/opencv/build/include
 
 CONFIG(debug, debug|release) {
-LIBS += D:/opencv3.4.1/opencv/build/x86/vc14/lib/*341d.lib
+LIBS += D:/opencv4.0/opencv/build/x86/vc15/lib/*400d.lib
 } else {
-LIBS += D:/opencv3.4.1/opencv/build/x86/vc14/lib/*341.lib
+LIBS += D:/opencv4.0/opencv/build/x86/vc15/lib/*400.lib
 }
 
 LIBS += F:/Qt_project/Simple_Camera_APP-Qt-opencv/lib/libfacedetect.lib

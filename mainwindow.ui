@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="10,1">
+   <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="10,0">
     <item>
      <layout class="QVBoxLayout" name="verticalLayout" stretch="10,0">
       <item>
@@ -44,7 +44,7 @@
      </layout>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_4" stretch="10,1,1">
+     <layout class="QVBoxLayout" name="verticalLayout_3" stretch="10,1,1,1,1,1">
       <item>
        <spacer name="verticalSpacer">
         <property name="orientation">
@@ -57,6 +57,24 @@
          </size>
         </property>
        </spacer>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>FPS:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="labelFPSValue">
+          <property name="text">
+           <string>0</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,0,2">
@@ -122,47 +140,43 @@
        </layout>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
-        <item>
-         <widget class="QPushButton" name="updateCameraInfoButton">
-          <property name="minimumSize">
-           <size>
-            <width>90</width>
-            <height>23</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Update Cameras</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="openCameraButton">
-          <property name="minimumSize">
-           <size>
-            <width>90</width>
-            <height>23</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Open Camera</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="closeCameraButton">
-          <property name="minimumSize">
-           <size>
-            <width>90</width>
-            <height>23</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Close Camera</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <widget class="QPushButton" name="updateCameraInfoButton">
+        <property name="minimumSize">
+         <size>
+          <width>90</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Update Cameras</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="openCameraButton">
+        <property name="minimumSize">
+         <size>
+          <width>90</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Open Camera</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="closeCameraButton">
+        <property name="minimumSize">
+         <size>
+          <width>90</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Close Camera</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>

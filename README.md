@@ -9,9 +9,15 @@ Based on Opencv.
 
 ## Screenshots: ##
 
-None.
+![](https://github.com/WangHongshuo/Readme_Images_Repository/blob/master/Simple_Camera_APP-Qt-opencv/readme.gif)
 
 ## Change Log: ##
+
+- 2018.12.24:
+
+Merry Christmas🎄🎅🎁!
+
+圣诞快乐🎄🎅🎁！
 
 - 2018.01.09:     
  

@@ -97,9 +97,9 @@ void WearSantaHat::putOnGreenHat(bool greenHat)
 void WearSantaHat::mainTask(Mat &src)
 {
     if(src.channels() == 3)
-        cvtColor(src,grayImage,CV_RGB2GRAY);
+        cvtColor(src,grayImage,COLOR_RGB2GRAY);
     else if(src.channels() == 4)
-        cvtColor(src,grayImage,CV_RGBA2BGRA);
+        cvtColor(src,grayImage,COLOR_RGBA2BGRA);
     else
         grayImage = src.clone();
     detecteFace(grayImage,facePositionData);
@@ -175,7 +175,7 @@ void WearSantaHat::addHat(Mat &src, Mat &dst, int hatIndex)
             Mat BGRAChannels[4];
             split(hat,BGRAChannels);
             Mat hatMask = BGRAChannels[3];
-            // ÂÌ»¯
+            // ç»¿åŒ–
             if(isPutOnGreenHat)
             {
                 Mat temp[4] = {BGRAChannels[0],BGRAChannels[2],BGRAChannels[1],BGRAChannels[3]};
@@ -183,7 +183,7 @@ void WearSantaHat::addHat(Mat &src, Mat &dst, int hatIndex)
                 split(hat,BGRAChannels);
             }
 
-            // hatÊÇ4Í¨µÀÍ¼Æ¬£¬Èç¹ûÊäÈëÍ¼Æ¬Îª3»ò1Í¨µÀ£¬×ª»»Ò»ÏÂ
+            // hatæ˜¯4é€šé“å›¾ç‰‡ï¼Œå¦‚æœè¾“å…¥å›¾ç‰‡ä¸º3æˆ–1é€šé“ï¼Œè½¬æ¢ä¸€ä¸‹
             if(src.channels() == 3)
             {
                 Mat temp[3] = {BGRAChannels[0],BGRAChannels[1],BGRAChannels[2]};
@@ -199,7 +199,7 @@ void WearSantaHat::addHat(Mat &src, Mat &dst, int hatIndex)
             srcY1 = facePositionY(i) - int(hat.rows*hatYScale[hatIndex]);
             srcX2 = srcX1 + hatSize - 1;
             srcY2 = srcY1 + hatSize - 1;
-            // ·ÀÖ¹Ô½½ç
+            // é˜²æ­¢è¶Šç•Œ
             if(srcX1 < 0)
             {
                 hatX1 = -srcX1;
